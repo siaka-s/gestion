@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 type Priority = "Urgente" | "Moyenne" | "Basse"
 
@@ -12,7 +12,13 @@ function App() {
 
   const [input,setInput] = useState("")
   const [priority,setPriority] = useState<Priority>("Moyenne")
-  const [Todos,setTodos] =  useState<Todo[]>([])
+  const savedTodos = localStorage.getItem("todos")
+  const initialTodos = savedTodos ? JSON.parse(savedTodos) : []
+  const [todos,setTodos] =  useState<Todo[]>(initialTodos)
+
+  useEffect(() => {
+    localStorage.setItem("todos",JSON.stringify(todos))
+  }, [todos])
 
   function addTodo() {
     if (input.trim() == "") {
@@ -25,13 +31,13 @@ function App() {
       priority : priority,
 
     }
-    const newTodos = [newTodo,...Todos]
+    const newTodos = [newTodo,...todos]
 
     setTodos(newTodos)
     setInput("")
     setPriority("Moyenne")
 
-    console.log(Todos)
+    console.log(todos)
 
 
   }
