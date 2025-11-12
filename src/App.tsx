@@ -12,6 +12,29 @@ function App() {
 
   const [input,setInput] = useState("")
   const [priority,setPriority] = useState<Priority>("Moyenne")
+  const [Todos,setTodos] =  useState<Todo[]>([])
+
+  function addTodo() {
+    if (input.trim() == "") {
+      return
+    }
+
+    const newTodo: Todo = {
+      id: Date.now(),
+      description: input.trim(),
+      priority : priority,
+
+    }
+    const newTodos = [newTodo,...Todos]
+
+    setTodos(newTodos)
+    setInput("")
+    setPriority("Moyenne")
+
+    console.log(Todos)
+
+
+  }
 
   return (
 
@@ -35,7 +58,7 @@ function App() {
             <option value="Moyenne">Moyenne</option>
             <option value="Basse">Basse</option>
           </select>
-          <button className="btn btn-primary">
+          <button onClick={addTodo} className="btn btn-primary">
             Ajouter
           </button>
         </div>
