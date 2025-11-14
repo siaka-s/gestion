@@ -12,11 +12,11 @@ type Props = {
     todo: Todo,
     onDelete: () => void
     isSelected : boolean 
+    onToggleSelected: (id:number) => void
 }
 
-
-
-const TodoItems = ({todo,onDelete,isSelected}: Props) => {
+  
+const TodoItems = ({todo,onDelete,isSelected,onToggleSelected}: Props) => {
 
     return ( 
         <li className="p-3 ">
@@ -25,7 +25,8 @@ const TodoItems = ({todo,onDelete,isSelected}: Props) => {
                     <input 
                     type="checkbox"  
                     className="checkbox checkbox-primary checkbox-sm"
-                    checked= {isSelected} 
+                    checked= {isSelected}
+                    onChange={()=> onToggleSelected(todo.id)} 
                     />
                     <span className="text-md font-bold">
                         <span>{todo.description}</span>
